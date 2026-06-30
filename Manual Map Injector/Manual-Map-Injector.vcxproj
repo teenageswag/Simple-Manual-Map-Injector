@@ -24,6 +24,7 @@
     <ProjectGuid>{8e30bb13-f263-4eaf-a17d-db0906099aac}</ProjectGuid>
     <RootNamespace>ManualMapInjector</RootNamespace>
     <WindowsTargetPlatformVersion>10.0</WindowsTargetPlatformVersion>
+    <ProjectName>Manual-Map-Injector</ProjectName>
   </PropertyGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.Default.props" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'" Label="Configuration">
@@ -72,27 +73,23 @@
   <PropertyGroup Label="UserMacros" />
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <TargetName>Injector-x86</TargetName>
+    <IntDir>$(MSBuildThisFileDirectory)..\build\int\$(Platform)\$(Configuration)\</IntDir>
+    <OutDir>$(MSBuildThisFileDirectory)..\build\bin\$(Platform)\$(Configuration)\</OutDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|Win32'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(SolutionDir)$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(Platform)\$(Configuration)\</IntDir>
-    <TargetName>Injector-x86</TargetName>
+    <OutDir>$(MSBuildThisFileDirectory)..\build\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)..\build\int\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(MSBuildThisFileDirectory)..\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(MSBuildThisFileDirectory)..\$(Platform)\$(Configuration)\Injector\</IntDir>
-    <TargetName>Injector-x64</TargetName>
+    <OutDir>$(MSBuildThisFileDirectory)..\build\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)..\build\int\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|x64'">
     <LinkIncremental>false</LinkIncremental>
-    <OutDir>$(MSBuildThisFileDirectory)..\$(Platform)\$(Configuration)\</OutDir>
-    <IntDir>$(MSBuildThisFileDirectory)..\$(Platform)\$(Configuration)\Injector\</IntDir>
-    <TargetName>Injector-x64</TargetName>
+    <OutDir>$(MSBuildThisFileDirectory)..\build\bin\$(Platform)\$(Configuration)\</OutDir>
+    <IntDir>$(MSBuildThisFileDirectory)..\build\int\$(Platform)\$(Configuration)\</IntDir>
   </PropertyGroup>
   <ItemDefinitionGroup Condition="'$(Configuration)|$(Platform)'=='Debug|Win32'">
     <ClCompile>
@@ -102,7 +99,8 @@
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
       <SupportJustMyCode>false</SupportJustMyCode>
       <BufferSecurityCheck>false</BufferSecurityCheck>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -118,7 +116,8 @@
       <SDLCheck>true</SDLCheck>
       <PreprocessorDefinitions>WIN32;NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -133,10 +132,11 @@
       <WarningLevel>Level3</WarningLevel>
       <PreprocessorDefinitions>_DEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <BufferSecurityCheck>false</BufferSecurityCheck>
       <SupportJustMyCode>false</SupportJustMyCode>
       <DebugInformationFormat>ProgramDatabase</DebugInformationFormat>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
@@ -151,8 +151,9 @@
       <IntrinsicFunctions>true</IntrinsicFunctions>
       <PreprocessorDefinitions>NDEBUG;_CONSOLE;%(PreprocessorDefinitions)</PreprocessorDefinitions>
       <ConformanceMode>true</ConformanceMode>
-      <LanguageStandard>stdcpp17</LanguageStandard>
+      <LanguageStandard>stdcpp23</LanguageStandard>
       <BufferSecurityCheck>false</BufferSecurityCheck>
+      <LanguageStandard_C>stdc17</LanguageStandard_C>
     </ClCompile>
     <Link>
       <SubSystem>Console</SubSystem>
