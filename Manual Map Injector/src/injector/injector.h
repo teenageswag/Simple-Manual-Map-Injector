@@ -1,11 +1,8 @@
 #pragma once
 
 #include <Windows.h>
-#include <iostream>
-#include <fstream>
-#include <TlHelp32.h>
-#include <stdio.h>
 #include <string>
+#include <syscalls-cpp/syscall.hpp>
 
 using f_LoadLibraryA = HINSTANCE(WINAPI*)(const char* lpLibFilename);
 using f_GetProcAddress = FARPROC(WINAPI*)(HMODULE hModule, LPCSTR lpProcName);
@@ -29,28 +26,33 @@ struct MANUAL_MAPPING_DATA
 	BOOL SEHSupport;
 
 #ifdef _WIN64
-	// Stub that replaces the DLL's imported _CxxThrowException. The original
-	// _CxxThrowException calls RtlPcToFileHeader(_ReturnAddress()) to obtain
-	// the throwing module's ImageBase for ExceptionInformation[3]; that API
-	// can't find a manually-mapped DLL, returns 0, and __CxxFrameHandler*
-	// then resolves the throw's catchable-type RVAs against the null page,
-	// so typed catches never match. The stub hardcodes our ImageBase and
-	// calls RaiseException directly.
 	void* pCxxThrowStub;
 #endif
 };
-
-
-////Note: Exception support only x64 with build params /EHa or /EHc
-//bool ManualMapDll(HANDLE hProc, BYTE* pSrcData, SIZE_T FileSize, bool ClearHeader = true, bool ClearNonNeededSections = true, bool AdjustProtections = true, bool SEHExceptionSupport = true, DWORD fdwReason = DLL_PROCESS_ATTACH, LPVOID lpReserved = 0);
-//void __stdcall Shellcode(MANUAL_MAPPING_DATA* pData);
 
 class Injector {
 public:
 	Injector() = default;
 	~Injector() = default;
-	bool Inject(HANDLE hProc, BYTE* pSrcData, SIZE_T FileSize, bool ClearHeader = true, bool ClearNonNeededSections = true, bool AdjustProtections = true, bool SEHExceptionSupport = true, DWORD fdwReason = DLL_PROCESS_ATTACH, LPVOID lpReserved = 0);
+
+	bool Inject(SyscallSectionDirect& sysmgr,
+		HANDLE hProcess,
+		BYTE* pSrcData,
+		SIZE_T FileSize,
+		bool ClearHeader = true,
+		bool ClearNonNeededSections = true,
+		bool AdjustProtections = true,
+		bool SEHExceptionSupport = true,
+		DWORD fdwReason = DLL_PROCESS_ATTACH,
+		LPVOID lpReserved = nullptr);
 
 private:
-	void __stdcall Shellcode(MANUAL_MAPPING_DATA* pData);
+	static void __stdcall Shellcode(MANUAL_MAPPING_DATA* pData);
+
+	BYTE* RemoteAlloc(SyscallSectionDirect& sysmgr, HANDLE hProc, SIZE_T size, ULONG protect);
+	bool RemoteWrite(SyscallSectionDirect& sysmgr, HANDLE hProc, PVOID base, const void* data, SIZE_T size);
+	bool RemoteRead(SyscallSectionDirect& sysmgr, HANDLE hProc, PVOID base, void* out, SIZE_T size);
+	bool RemoteProtect(SyscallSectionDirect& sysmgr, HANDLE hProc, PVOID base, SIZE_T size, ULONG newProtect, ULONG* oldProtect);
+	bool RemoteFree(SyscallSectionDirect& sysmgr, HANDLE hProc, PVOID base, SIZE_T size = 0);
+	HANDLE RemoteCreateThread(SyscallSectionDirect& sysmgr, HANDLE hProc, PVOID startAddr, PVOID param);
 };

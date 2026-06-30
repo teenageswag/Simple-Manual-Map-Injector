@@ -170,11 +170,13 @@
   <ItemGroup>
     <ClCompile Include="src\app\app.cpp" />
     <ClCompile Include="src\injector\injector.cpp" />
+    <ClCompile Include="src\process\process.cpp" />
     <ClCompile Include="src\main.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="src\app\app.h" />
     <ClInclude Include="src\injector\injector.h" />
+    <ClInclude Include="src\process\process.h" />
     <ClInclude Include="libs\logger\logger.h" />
     <ClInclude Include="libs\syscalls-cpp\crt.hpp" />
     <ClInclude Include="libs\syscalls-cpp\hash.hpp" />
