@@ -1,4 +1,7 @@
 #pragma once
+#include "injector/injector.h"
+#include <syscalls-cpp/syscall.hpp>
+
 class App {
 public:
 	App() = default;
@@ -8,5 +11,5 @@ public:
 	int Run();
 
 private:
-	// std::unique_ptr<Injector> m_injector;
+	std::unique_ptr<Injector> m_injector;
 };

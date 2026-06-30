@@ -1,10 +1,10 @@
 #include "app.h"
+#include <memory>
 
 bool App::Init(wchar_t* dll_path, wchar_t* process_name) {
 	// инициализировать syscalls, если надо
-	// инициализировать injector
 	// проверить что длл и процесс корректные
-
+	m_injector = std::make_unique<Injector>();
 	return true;
 }
 
