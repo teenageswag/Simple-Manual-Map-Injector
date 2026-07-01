@@ -348,7 +348,7 @@ bool Injector::Inject(SyscallSectionDirect& sysmgr,
 
 	// Wait for shellcode to finish
 	HINSTANCE hCheck = nullptr;
-	DWORD tStart = GetTickCount();
+	DWORD tStart = static_cast<DWORD>(GetTickCount64());
 	const DWORD kInjectTimeoutMs = 30000;
 
 	while (!hCheck) {
@@ -361,7 +361,7 @@ bool Injector::Inject(SyscallSectionDirect& sysmgr,
 			return false;
 		}
 
-		if (GetTickCount() - tStart > kInjectTimeoutMs) {
+		if (GetTickCount64() - tStart > kInjectTimeoutMs) {
 			log::error("Injection timed out after {} ms", kInjectTimeoutMs);
 			return false;
 		}
